@@ -11,7 +11,7 @@ Actual Windows 10 VM verification remains pending.
 
 ## Install
 
-Download **`divvun-wind-windows-x86_64.exe`** from the private repository's
+Download **`divvun-wind_x86-64-pc-windows-msvc_<version>.exe`** from the private repository's
 [dev-latest release](https://github.com/divvun/divvun-wind/releases/tag/dev-latest).
 Successful main builds update this signed development installer. Version tags
 publish versioned releases. Sign out and back in after installing or updating;

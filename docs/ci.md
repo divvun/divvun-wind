@@ -32,10 +32,10 @@ SHA-256 hashes. NuGet dependency versions, URLs and hashes live in Wind metadata
 Download the installer while signed into a GitHub account with repository access:
 
 - [Rolling development release](https://github.com/divvun/divvun-wind/releases/tag/dev-latest)
-- Asset: **`divvun-wind-windows-x86_64.exe`**
+- Asset: **`divvun-wind_x86-64-pc-windows-msvc_<version>.exe`**
 
 ```powershell
-gh release download dev-latest --repo divvun/divvun-wind --pattern divvun-wind-windows-x86_64.exe
+gh release download dev-latest --repo divvun/divvun-wind --pattern 'divvun-wind_x86-64-pc-windows-msvc_*.exe'
 ```
 
 The managed bootstrap pins generated jobs to the actions revision that generated

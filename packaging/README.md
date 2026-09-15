@@ -4,7 +4,7 @@
 The bundler uses `OuttoBuilder` and `makeOuttoInstaller`; outto owns installation,
 registry/file tracking, upgrades and the installed uninstaller.
 
-Get `divvun-wind-windows-x86_64.exe` from the private repository's
+Get `divvun-wind_x86-64-pc-windows-msvc_<version>.exe` from the private repository's
 [dev-latest release](https://github.com/divvun/divvun-wind/releases/tag/dev-latest)
 after a successful main build. Version tags publish versioned GitHub releases.
 See [CI details](../docs/ci.md) for signing and development artifacts.
