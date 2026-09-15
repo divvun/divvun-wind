@@ -41,10 +41,13 @@ gh release download dev-latest --repo divvun/divvun-wind --pattern divvun-wind-w
 The managed bootstrap pins generated jobs to the actions revision that generated
 them. New pipeline code requires a fresh build, rather than retrying an old job.
 The source-only hosted build succeeded before installer integration. The first
-signed installer/publication run still needs hosted confirmation.
+installer run (Buildkite #3) failed; its private job log is needed to diagnose
+the hosted failure. No signed installer release has been confirmed yet.
 
 Local validation: all 25 Rust tests, strict Clippy and the release build pass;
 the actual unsigned outto installer has been built with verified Microsoft DLLs.
+Symbol resolution against the current Windows 11 shell succeeds with the full
+pinned runtime, including `msdia140.dll` required by this DbgHelp version.
 The shared pipeline's four tests cover release/PR/tag dispatch, dependency gates
 and package ownership. Run them in divvun-actions with:
 

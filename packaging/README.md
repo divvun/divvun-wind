@@ -10,7 +10,7 @@ after a successful main build. Version tags publish versioned GitHub releases.
 See [CI details](../docs/ci.md) for signing and development artifacts.
 
 The package includes `divvun-wind.exe`, `divvunwind.dll`, the symbol helper,
-Microsoft's x64 `dbghelp.dll` and `symsrv.dll`, and license notices. Microsoft
+Microsoft's x64 `dbghelp.dll`, `msdia140.dll` and `symsrv.dll`, and license notices. Microsoft
 packages are pinned by version/URL/SHA-256 and their signatures are checked.
 No developer SDK installation is copied into the package.
 

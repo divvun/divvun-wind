@@ -1,7 +1,7 @@
 
 ## Microsoft Debugger Platform redistributables
 
-The installer includes the x64 `dbghelp.dll` and `symsrv.dll` from Microsoft's
+The installer includes the x64 `dbghelp.dll`, `msdia140.dll` and `symsrv.dll` from Microsoft's
 `Microsoft.Debugging.Platform.DbgEng` and `Microsoft.Debugging.Platform.SymSrv`
 NuGet packages, version `20260319.1511.0`. Copyright Microsoft Corporation.
 All rights reserved. These files retain their Microsoft Authenticode signatures.
