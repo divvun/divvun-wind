@@ -1,0 +1,15 @@
+{
+  "id": "no.divvun.wind",
+  "name": "Divvun Windows Daemon",
+  "publisher": "Divvun",
+  "architecture": "x64",
+  "default_dir": "#{pf}/Divvun/Wind",
+  "catalogue_dir": "#{commonappdata}/Divvun/Keyboards",
+  "payloads": [
+    "divvun-wind.exe",
+    "divvun-wind-symbols.exe",
+    "divvun_keyboard_labels.dll"
+  ],
+  "divvun_actions_revision": "4a3c9dfe5b5fd26d35d78858463432c275a97fb1",
+  "outto_reviewed_revision": "9d5f1147ba68e7ba34b640912d355abf0a2692fb"
+}

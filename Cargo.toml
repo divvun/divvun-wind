@@ -1,0 +1,28 @@
+[workspace]
+resolver = "2"
+members = ["crates/common", "crates/wind", "crates/keyboard-labels", "crates/symbols"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+rust-version = "1.98.1"
+
+[workspace.dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+language-tags = "0.3.2"
+wind-common = { path = "crates/common" }
+wind-symbols = { path = "crates/symbols", default-features = false }
+windows-detours = { git = "https://github.com/necessary-nu/windows-detours", rev = "af6fab2ab3c01da2947905307e562fa246a8fcfb" }
+windows = { version = "0.62", features = ["Globalization"] }
+windows-sys = { version = "0.61", features = [
+    "Win32_Foundation", "Win32_Security", "Win32_Storage_FileSystem",
+    "Win32_System_Threading", "Win32_System_LibraryLoader", "Win32_System_Memory",
+    "Win32_System_Diagnostics_Debug", "Win32_System_Diagnostics_ToolHelp",
+    "Win32_System_RemoteDesktop", "Win32_System_WindowsProgramming",
+    "Win32_System_SystemInformation", "Win32_Globalization", "Win32_UI_WindowsAndMessaging",
+] }
+
+[profile.release]
+panic = "abort"

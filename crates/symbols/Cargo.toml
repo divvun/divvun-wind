@@ -1,0 +1,21 @@
+[package]
+name = "wind-symbols"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+
+[features]
+default = ["resolver"]
+resolver = []
+
+[[bin]]
+name = "divvun-wind-symbols"
+path = "src/main.rs"
+required-features = ["resolver"]
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+wind-common.workspace = true
+windows-sys.workspace = true

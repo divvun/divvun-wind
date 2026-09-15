@@ -1,0 +1,14 @@
+{
+  "crates\\locale-watcher\\src\\main.rs": "84f441dd601fbf2315d5fd384f4339838fe677e7f4ad6727747e437a1ee1eaeb",
+  "crates\\locale-watcher\\src\\native.rs": "a1a13635bfbf07219a701fee031dba2911aee550db1e0fbb19a8c6a3e2947b61",
+  "crates\\locale-override-dll\\src\\hooks.rs": "0c13c6d40f058199b38b20735b6350b6cecd2215b4ba02b0262292b2bcf1115d",
+  "crates\\locale-override-dll\\src\\taskbar.rs": "53fce891b95e49136e0dfd4f721b3d23cfa524bd15b32b85db087804e38aa592",
+  "crates\\locale-override-dll\\src\\standalone.rs": "92be468b52f4cb91d4ee04c6f3879a3ebc060cc735b04c9244fa90f4a839d83e",
+  "crates\\locale-override-dll\\src\\ui_language.rs": "d862d414bb8efd01d345e73729d6c9e6c4c48ee455b79cb007a7711ef24a9df8",
+  "crates\\taskbar-symbols\\src\\lib.rs": "db076e51ada572d011053e3bc4f3e73e410ea070c474e17e7c20f8118c075927",
+  "crates\\taskbar-symbols\\src\\main.rs": "528ef50979719af7c814e091b3473114b33e399c54ea82bc254b73d21ad37d00",
+  "crates\\taskbar-symbols\\src\\image.rs": "eb9d3aabb557d517ae0adf0e576592c140dc4b092f428e662ebf6774af521053",
+  "crates\\taskbar-symbols\\src\\loaded.rs": "23e3bc51facd8358fe5cc5cce2a39b14ef0a43cb5b3c4415f00c5181c412a32d",
+  "crates\\taskbar-symbols\\src\\resolver.rs": "adc7a3187a3d04461717276132c13f50066e8989a07e806ad45d5ae794c19a77",
+  "crates\\common\\src\\locale.rs": "486aca97b30005270c9d9f12bba625ccc03b07a936ca39af616668e6e298867b"
+}

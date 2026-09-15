@@ -1,0 +1,14 @@
+steps:
+  - label: "Windows x64: check, test, build"
+    key: windows-x64
+    agents:
+      queue: windows
+    command: 'pwsh -NoProfile -File scripts/ci.ps1 -Build'
+    artifact_paths:
+      - "target/x86_64-pc-windows-msvc/release/divvun-wind.exe"
+      - "target/x86_64-pc-windows-msvc/release/divvun-wind-symbols.exe"
+      - "target/x86_64-pc-windows-msvc/release/divvun_keyboard_labels.dll"
+      - "target/x86_64-pc-windows-msvc/release/*.pdb"
+
+# Source validation only. Installer/sign/publish jobs are added once outto's
+# Windows 10 skip and the product lifecycle pass the release gates in docs/.

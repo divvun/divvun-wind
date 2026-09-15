@@ -1,0 +1,16 @@
+{
+  "sjd-cyrl": {
+    "abbreviation": "КИЛ",
+    "display_name": {
+      "en": "Kildin Sami",
+      "ru": "Кильдинский саамский"
+    }
+  },
+  "gem-runr": {
+    "abbreviation": "RUN",
+    "display_name": {
+      "en": "Futhark",
+      "ru": "Футарк"
+    }
+  }
+}

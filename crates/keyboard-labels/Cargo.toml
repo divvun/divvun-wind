@@ -1,0 +1,19 @@
+[package]
+name = "divvun-keyboard-labels"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+wind-common.workspace = true
+wind-symbols.workspace = true
+windows-sys.workspace = true
+windows-detours.workspace = true
+
+[dev-dependencies]
+serde_json.workspace = true
+windows.workspace = true
