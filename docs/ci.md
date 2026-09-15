@@ -1,9 +1,9 @@
 # CI integration
 
-The shared implementation is in [divvun-actions PR #24](https://github.com/divvun/divvun-actions/pull/24),
-commit `ab7728d6e562fff7d8d626d50513e62009f59a34`. It is awaiting merge into the
-managed bootstrap's `main` revision. No Buildkite webhook was registered for
-Wind when checked; hosted CI activation is still pending.
+The shared pipeline and repository dispatch are on `divvun-actions/main` at
+[commit ab7728d](https://github.com/divvun/divvun-actions/commit/ab7728d6e562fff7d8d626d50513e62009f59a34).
+The managed bootstrap can now select Wind. No Buildkite webhook was registered
+for Wind when checked; hosted pipeline/webhook registration is still pending.
 
 Wind uses the shared Divvun Actions Buildkite integration. Pipeline selection
 and job orchestration live in `divvun/divvun-actions`, not in a `.buildkite`
@@ -36,8 +36,7 @@ noninteractive runtime coverage; Windows 11-only tests skip on that OS. An
 actual Windows 11 Explorer/menu test needs an interactive VM, and the DLL smoke
 test in `scripts/smoke-dll.ps1` is for that environment.
 
-The shared actions change must reach the bootstrap's `main` revision before
-managed CI can select this pipeline. Repository/pipeline registration and
+The managed bootstrap selects this pipeline from divvun-actions `main`. Repository/pipeline registration and
 webhooks use `services/sync-github` scoped to `divvun/divvun-wind`; keep the
 Buildkite pipeline private like its GitHub repository. Removing the old local
 YAML alone does not activate hosted CI.
