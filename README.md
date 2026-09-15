@@ -6,7 +6,20 @@ for languages Windows does not recognize.
 
 This is the initial standalone implementation for **Windows 11 x64**. Normal
 daemon/helper launch and direct DLL loading are inert on Windows 10 and Server.
-Actual Windows 10 VM verification and the installer remain release gates.
+The installer also checks eligibility before extraction or elevation.
+Actual Windows 10 VM verification remains pending.
+
+## Install
+
+Download **`divvun-wind-windows-x86_64.exe`** from the private repository's
+[dev-latest release](https://github.com/divvun/divvun-wind/releases/tag/dev-latest).
+Successful main builds update this signed development installer. Version tags
+publish versioned releases. Sign out and back in after installing or updating;
+the machine-wide logon entry starts Wind for each interactive user.
+
+The installer uses outto and includes the symbol runtime dependencies. It
+preserves `C:\ProgramData\Divvun\Keyboards` and installs no sample definitions.
+See [installer details](packaging/README.md) for current development limitations.
 
 ## Build and check
 
@@ -28,7 +41,8 @@ This checks formatting, Clippy and tests, then builds these unsigned files in
 CI uses Divvun's managed Buildkite bootstrap: `divvun-actions ci`. The repository
 dispatch in divvun-actions selects `pipelines/divvun-wind.ts`, which imports the
 x64 MSVC environment, runs the same check/build script on the Windows queue and
-uploads the unsigned artifacts. Generated jobs use the generating actions revision.
+uploads the binaries. Dependent jobs build the outto installer and publish
+`dev-latest` on main. Generated jobs use the generating actions revision.
 There is no repo-local Buildkite pipeline. See [CI integration](docs/ci.md).
 
 The shared Windows queue uses Server Core; Windows 11 Explorer/UI tests require
@@ -87,7 +101,7 @@ keyboard definitions belong in ProgramData. Symbol preparation expects the
 declared debugger runtime beside the helper, or an explicit `--dbghelp` argument
 for development. The unsigned build alone is not an installed runtime bundle.
 
-Installation will use **outto**, through **divvun-actions**. See the
+Installation uses **outto**, through **divvun-actions**. See the
 [implementation status](docs/status.md), [catalogue design](docs/keyboard-label-catalogue.md)
 and [packaging contract](packaging/README.md).
 

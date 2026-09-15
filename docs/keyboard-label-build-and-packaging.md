@@ -1,6 +1,11 @@
 # Divvun Wind: standalone repository, outto and CI
 
-Status: target build and packaging plan, 2026-09-15. The independent repository
+Status: original production target plan, 2026-09-15. The development installer
+and `dev-latest` pipeline are now implemented; [packaging/README.md](../packaging/README.md)
+describes their current behavior and limitations. Historical prerequisite
+statements below do not supersede the implemented installer launcher gate.
+
+Original planning context: The independent repository
 and local check/build script now exist; the source CI pipeline lives in
 divvun-actions (see [CI integration](ci.md)). Installation and release orchestration
 remain pending. See [implementation status](status.md) and the companion

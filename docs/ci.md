@@ -1,16 +1,6 @@
-# CI integration
+# CI and installer releases
 
-The shared pipeline and repository dispatch include the PowerShell quoting fix at
-[commit b7b62ee](https://github.com/divvun/divvun-actions/commit/b7b62eeda223dcc91132638431de4c8baeb1cc8e).
-The first hosted build reached the Windows job but failed while parsing its inline
-PowerShell command. The job now invokes `pwsh -NoProfile -File scripts/buildkite.ps1`.
-
-Wind uses the shared Divvun Actions Buildkite integration. Pipeline selection
-and job orchestration live in `divvun/divvun-actions`, not in a `.buildkite`
-file in this repository.
-
-The managed bootstrap is defined in
-`divvun-actions/services/sync-github/types.ts`:
+Wind uses the managed Divvun Actions Buildkite bootstrap:
 
 ```yaml
 steps:
@@ -19,41 +9,49 @@ steps:
       - ssh://git@github.com/divvun/divvun-actions.git#main: ~
 ```
 
-`cli.ts` selects `pipelineDivvunWind()` for the `divvun-wind` repository.
-`pipelines/divvun-wind.ts` schedules the Windows x64 job and attaches the shared
-plugin at the generating actions revision, matching the other Divvun pipelines.
-The Wind `scripts/buildkite.ps1` entry point imports the complete MSVC environment
-using `msvc-env x64`, then runs `scripts/ci.ps1 -Build`. PowerShell syntax and
-artifact globs stay in the script, outside Buildkite command interpolation and
-shell quoting. Failed setup, checks, builds or artifact uploads stop the job.
+The shared `pipelines/divvun-wind.ts` dispatches three dependent steps:
 
-The job uploads the daemon, symbol helper, `divvunwind.dll` and PDB files as
-unsigned Buildkite artifacts. No signing, installer or release publication job
-is enabled yet. Outto packaging remains governed by the
-[packaging contract](../packaging/README.md).
+1. Windows x64: import MSVC, format/check/test, build the runtime and upload binaries/PDBs.
+2. Windows x64: download those binaries, stage the pinned Microsoft debugger DLLs,
+   build the outto installer, and embed it in Wind's Windows 11 launcher.
+3. Linux: verify the installer hash/build identity, then publish the installer,
+   generated outto manifest, build provenance and `SHA256SUMS` to GitHub Releases.
 
-The shared Windows image uses Server Core. Its tests provide build and
-noninteractive runtime coverage; Windows 11-only tests skip on that OS. An
-actual Windows 11 Explorer/menu test needs an interactive VM, and the DLL smoke
-test in `scripts/smoke-dll.ps1` is for that environment.
+Successful `main` builds update the **`dev-latest` prerelease**. A `vX.Y.Z` tag
+matching the Cargo workspace version creates a versioned release. Pull requests,
+other branches and non-version tags build explicitly `.UNSIGNED.exe` artifacts
+in Buildkite and cannot publish. Signing failures fail the release build; there
+is no unsigned fallback. Publication depends on both checks and packaging.
 
-The managed bootstrap selects this pipeline from divvun-actions `main`. Repository/pipeline registration and
-webhooks use `services/sync-github` scoped to `divvun/divvun-wind`; keep the
-Buildkite pipeline private like its GitHub repository. Start a new build at the updated Wind commit so both the new script and shared
-pipeline are used. Retrying an already generated Windows job retains its old command.
+Signed builds use the existing Divvun signing service for the three runtime
+binaries, outto's installer/uninstaller, and the outer launcher. Microsoft's
+debugger DLL signatures are preserved and checked. The shared Windows image
+provides outto; packaging requires its GUI and uninstaller and records their
+SHA-256 hashes. NuGet dependency versions, URLs and hashes live in Wind metadata.
 
-To test pipeline selection in the actions checkout:
+Download the installer while signed into a GitHub account with repository access:
+
+- [Rolling development release](https://github.com/divvun/divvun-wind/releases/tag/dev-latest)
+- Asset: **`divvun-wind-windows-x86_64.exe`**
+
+```powershell
+gh release download dev-latest --repo divvun/divvun-wind --pattern divvun-wind-windows-x86_64.exe
+```
+
+The managed bootstrap pins generated jobs to the actions revision that generated
+them. New pipeline code requires a fresh build, rather than retrying an old job.
+The source-only hosted build succeeded before installer integration. The first
+signed installer/publication run still needs hosted confirmation.
+
+Local validation: all 25 Rust tests, strict Clippy and the release build pass;
+the actual unsigned outto installer has been built with verified Microsoft DLLs.
+The shared pipeline's four tests cover release/PR/tag dispatch, dependency gates
+and package ownership. Run them in divvun-actions with:
 
 ```powershell
 deno test --frozen --allow-env --allow-read pipelines/divvun-wind_test.ts
 ```
 
-These tests exercise the real `divvun-actions ci` dispatcher and validate the
-generated Buildkite schema without permission to spawn jobs or contact Buildkite.
-
-Validation of this correction: Deno formatting, lint and both pipeline dispatch
-tests pass. The script was invoked locally through a PowerShell command wrapper
-and passed strict Clippy, all 23 Rust tests and the release build. Failure checks
-with stubbed commands confirmed that setup/check failures prevent artifact upload
-and that an upload failure stops further uploads. Artifact arguments, including the
-literal PDB glob, were captured with an upload stub; hosted uploads remain unverified.
+Server Core CI supplies build and noninteractive checks. Real Windows 11/10
+installation, update, removal, logon and Explorer menu tests require VMs. See
+[installer behavior and remaining verification](../packaging/README.md).

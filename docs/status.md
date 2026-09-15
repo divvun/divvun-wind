@@ -5,7 +5,7 @@ longer catalogue and packaging plans.
 
 ## Implemented in this repository
 
-- Independent four-crate Cargo workspace, pinned Rust/Detours, lockfile and
+- Independent Cargo workspace, including the installer launcher, pinned Rust/Detours, lockfile and
   local check/build script. The managed Buildkite pipeline and repository dispatch
   live in divvun-actions; see [CI integration](ci.md).
 - Shared manifest-independent OS build/client check. Daemon, symbol helper and
@@ -28,7 +28,7 @@ On this Windows 11 x64 development machine:
 
 - `cargo fmt --all -- --check` and Clippy for all workspace targets with
   `-D warnings` pass.
-- `cargo test --workspace --locked` passes all 23 tests. These include isolated
+- `cargo test --workspace --locked` passes all 25 tests. These include isolated
   native en/ru hooks, symbol/cache validation, process readiness, catalogue
   schema/conflicts/recovery/bounds, and CLI JSON/error behavior. The conditional
   unsupported-OS CLI case requires a Windows 10/Server host to exercise its body.
@@ -39,19 +39,27 @@ On this Windows 11 x64 development machine:
 This is local build/runtime evidence. Clean VM, actual Explorer UI, Windows 10
 side effects and the hosted Buildkite run remain unverified for this extraction.
 
-## Next work and release gates
+## Installer integration
 
-1. Implement outto's successful early unsupported-OS skip, required helper
-   failure/rollback semantics and owned JSON publication contract; then add the
-   divvun-actions outto bundler and pinned toolkit provisioning.
-2. Implement all-session startup, versioned update/removal coordination and
+The shared pipeline builds outto installers and publishes signed `dev-latest`
+prereleases on main, with versioned publication for version tags. The installer
+uses versioned runtime paths, an all-user Run entry, pinned Microsoft debugger
+redistributables, and an outer Windows 11 guard. The actual unsigned package was
+built locally; hosted signing/publication and VM lifecycle checks are pending.
+See [packaging behavior](../packaging/README.md).
+
+## Remaining production work
+
+1. Verify the installer gate and lifecycle in clean Windows 11/10 VMs; pin the
+   release builder image. Package-owned JSON publication remains separate work.
+2. Implement running-session update/removal coordination and
    explicit migration from the prototype's single shared JSON file.
 3. Add shell crash-loop protection and production initialization/error reporting.
    Harden/review concurrent hook installation before distributing the DLL.
 4. Verify the built runtime in disposable Windows 11/10 VMs, including actual
    taskbar/menu behavior, two users, logon/cold boot and Explorer replacement.
-5. Sign, package with outto, verify the actual installer and wire gated release
-   publication. The current pipeline has no signing or publication job.
+5. Confirm hosted signing/publication and verify the actual signed installer.
+   Signing, outto packaging and release jobs are now wired in the shared pipeline.
 6. Add DLL catalogue reload/acknowledgement and repeatable UI refresh, with
    independent catalogue-generation and visible-refresh status. Add bounded
    scan-race reconciliation for runtime reload. These are not implemented yet.

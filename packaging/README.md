@@ -1,29 +1,40 @@
-# Outto packaging
+# Outto installer
 
-`product.json` is the product contract for the future divvun-actions bundler.
-The application version comes from `workspace.package.version` in Cargo.toml.
-It is not an outto manifest: the `*_revision` fields are build inputs and must
-not be sent to outto as unsupported configuration options.
+`product.json` is the input to `actions/divvun-wind/bundle.ts` in divvun-actions.
+The bundler uses `OuttoBuilder` and `makeOuttoInstaller`; outto owns installation,
+registry/file tracking, upgrades and the installed uninstaller.
 
-Use the existing `OuttoBuilder` and `makeOuttoInstaller` in divvun-actions.
-The inspected revisions and required integration points are recorded in the
-[packaging plan](../docs/keyboard-label-build-and-packaging.md).
+Get `divvun-wind-windows-x86_64.exe` from the private repository's
+[dev-latest release](https://github.com/divvun/divvun-wind/releases/tag/dev-latest)
+after a successful main build. Version tags publish versioned GitHub releases.
+See [CI details](../docs/ci.md) for signing and development artifacts.
 
-The initial CI job produces unsigned runtime binaries. Installer generation and
-distribution remain pending because the reviewed outto revision does not yet
-implement the required Windows 10 no-op before UI/elevation/side effects. It
-also needs reliable required-action failure and rollback semantics. A runtime
-OS guard or an unenforced `min_version` field does not resolve those gaps.
+The package includes `divvun-wind.exe`, `divvunwind.dll`, the symbol helper,
+Microsoft's x64 `dbghelp.dll` and `symsrv.dll`, and license notices. Microsoft
+packages are pinned by version/URL/SHA-256 and their signatures are checked.
+No developer SDK installation is copied into the package.
 
-Before adding the bundler:
+The distributed launcher checks the shared Windows 11 client eligibility rule
+before extracting or starting outto. Windows 10/Server return success without
+installer UI, elevation or extraction. Outto remains the installer; the launcher
+only supplies the early gate and forwards arguments/exit status. Its raw Cargo
+build has no embedded installer and is not a distribution artifact.
 
-- Resolve outto eligibility and lifecycle semantics and pin the resulting toolkit.
-- Implement all-session startup, versioned updates and removal coordination.
-- Declare the licensed SDK debugger runtime artifact (dbghelp.dll/symsrv.dll),
-  its version and checksums; do not copy a developer's installed SDK into CI.
-- Sign runtime files before embedding them; then sign and verify the installer.
-- Test install/update/uninstall on Windows 11 and successful no-op on Windows 10.
-- Make artifact publication depend on every required verification job.
+Outto installs into `Program Files\Divvun\Wind\versions\<version>`. It registers
+the `DivvunWind` value in the machine Run key, so each interactive user starts
+the daemon at logon, including users created after installation. The Start menu
+also has a Divvun Wind entry. **Sign out and back in after installing or updating**
+to activate the version in each session. Automated handover of running sessions
+is not implemented yet.
 
-The runtime package must preserve the keyboard catalogue and must not install
-the test fixtures as real keyboard definitions.
+Versioned paths avoid overwriting an older DLL loaded in Explorer. Restart
+Manager is disabled so installation does not close Explorer to unlock files.
+Outto owns only Wind's Run value, its runtime files and shortcut. The shared
+`ProgramData\Divvun\Keyboards` directory is preserved; keyboard installers
+continue to own their JSON files. Wind does not install demonstration definitions.
+
+This is a development installer. Clean Windows 11/10 VM install/update/uninstall,
+two-user startup, rollback and cleanup of files still loaded during removal need
+verification. Sign out of other sessions and stop the current daemon before
+removal; hooks already loaded in Explorer last until it exits. Automatic session
+handover and deferred cleanup remain follow-up work, not claims of this package.

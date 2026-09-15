@@ -10,6 +10,24 @@
     "divvun-wind-symbols.exe",
     "divvunwind.dll"
   ],
-  "divvun_actions_revision": "b7b62eeda223dcc91132638431de4c8baeb1cc8e",
-  "outto_reviewed_revision": "9d5f1147ba68e7ba34b640912d355abf0a2692fb"
+  "divvun_actions_revision": "674abf1f97a3351aedb57d4652aa4d97a5d20c11",
+  "outto_reviewed_revision": "9d5f1147ba68e7ba34b640912d355abf0a2692fb",
+  "debugger_packages": [
+    {
+      "id": "Microsoft.Debugging.Platform.DbgEng",
+      "version": "20260319.1511.0",
+      "url": "https://api.nuget.org/v3-flatcontainer/microsoft.debugging.platform.dbgeng/20260319.1511.0/microsoft.debugging.platform.dbgeng.20260319.1511.0.nupkg",
+      "sha256": "875678516f9ceed4a1c8b9b106d165106fcaa38723ad7c584c47b95b231600de",
+      "member": "content/amd64/dbghelp.dll",
+      "filename": "dbghelp.dll"
+    },
+    {
+      "id": "Microsoft.Debugging.Platform.SymSrv",
+      "version": "20260319.1511.0",
+      "url": "https://api.nuget.org/v3-flatcontainer/microsoft.debugging.platform.symsrv/20260319.1511.0/microsoft.debugging.platform.symsrv.20260319.1511.0.nupkg",
+      "sha256": "8d24440267581038de0101b36c0d75daf7f063d86f3d6adca61038c236df7ce7",
+      "member": "content/amd64/symsrv.dll",
+      "filename": "symsrv.dll"
+    }
+  ]
 }
