@@ -40,9 +40,12 @@ gh release download dev-latest --repo divvun/divvun-wind --pattern divvun-wind-w
 
 The managed bootstrap pins generated jobs to the actions revision that generated
 them. New pipeline code requires a fresh build, rather than retrying an old job.
-The source-only hosted build succeeded before installer integration. The first
-installer run (Buildkite #3) failed; its private job log is needed to diagnose
-the hosted failure. No signed installer release has been confirmed yet.
+Hosted installer builds reached outto's uninstaller signing, then failed because
+outto's Windows command construction escaped embedded quotes for the wrong parser.
+The shared signing adapter now expands quoted paths from the child environment,
+after that escaping step. This correction is tested through the installed outto
+CLI with spaced signer/output paths and a failing test signer. The next hosted
+build will exercise the real signing service and release publication.
 
 Local validation: all 25 Rust tests, strict Clippy and the release build pass;
 the actual unsigned outto installer has been built with verified Microsoft DLLs.
@@ -54,6 +57,16 @@ and package ownership. Run them in divvun-actions with:
 ```powershell
 deno test --frozen --allow-env --allow-read pipelines/divvun-wind_test.ts
 ```
+
+With outto installed on Windows, also run the signing integration test:
+
+```powershell
+deno test --frozen --allow-env --allow-read --allow-write --allow-run=outto actions/outto/lib_test.ts
+```
+
+This test builds disposable fixtures with a test signer. It checks invocation
+and failure propagation without using signing credentials or installing anything.
+
 
 Server Core CI supplies build and noninteractive checks. Real Windows 11/10
 installation, update, removal, logon and Explorer menu tests require VMs. See
