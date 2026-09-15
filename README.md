@@ -25,8 +25,14 @@ This checks formatting, Clippy and tests, then builds these unsigned files in
 - `divvun_keyboard_labels.dll`: Explorer keyboard label hooks.
 - `divvun-wind-symbols.exe`: exact-image Microsoft symbol preparation/validation.
 
-`.buildkite/pipeline.yml` runs the same checks on the Windows queue. Provisioning
-and pinning the release builder image is still required before release CI.
+CI uses Divvun's managed Buildkite bootstrap: `divvun-actions ci`. The repository
+dispatch in divvun-actions selects `pipelines/divvun-wind.ts`, which imports the
+x64 MSVC environment, runs the same check/build script on the Windows queue and
+uploads the unsigned artifacts. Generated jobs use the generating actions revision.
+There is no repo-local Buildkite pipeline. See [CI integration](docs/ci.md).
+
+The shared Windows queue uses Server Core; Windows 11 Explorer/UI tests require
+separate interactive VMs. Pinning the release builder image remains a release gate.
 
 ## Keyboard definitions
 

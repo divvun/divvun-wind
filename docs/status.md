@@ -6,7 +6,8 @@ longer catalogue and packaging plans.
 ## Implemented in this repository
 
 - Independent four-crate Cargo workspace, pinned Rust/Detours, lockfile and
-  source-only Buildkite validation/build job.
+  local check/build script. The managed Buildkite pipeline and repository dispatch
+  live in divvun-actions; see [CI integration](ci.md).
 - Shared manifest-independent OS build/client check. Daemon, symbol helper and
   DLL entry points perform a successful no-op on ineligible systems.
 - Shared directory catalogue loader: UTF-8/BOM, grammar-based tag validation,
@@ -42,7 +43,7 @@ side effects and the hosted Buildkite run remain unverified for this extraction.
 
 1. Implement outto's successful early unsupported-OS skip, required helper
    failure/rollback semantics and owned JSON publication contract; then add the
-   divvun-actions bundler/routing and pinned toolkit provisioning.
+   divvun-actions outto bundler and pinned toolkit provisioning.
 2. Implement all-session startup, versioned update/removal coordination and
    explicit migration from the prototype's single shared JSON file.
 3. Add shell crash-loop protection and production initialization/error reporting.

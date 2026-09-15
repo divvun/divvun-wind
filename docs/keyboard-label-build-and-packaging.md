@@ -1,7 +1,8 @@
 # Divvun Wind: standalone repository, outto and CI
 
 Status: target build and packaging plan, 2026-09-15. The independent repository
-and source validation/build job now exist; installation and release orchestration
+and local check/build script now exist; the source CI pipeline lives in
+divvun-actions (see [CI integration](ci.md)). Installation and release orchestration
 remain pending. See [implementation status](status.md) and the companion
 [catalogue design](keyboard-label-catalogue.md). These are explicit product
 requirements: the implementation belongs in a clean standalone repository, and
@@ -89,8 +90,9 @@ requires its installer/uninstaller companion binaries, not just `outto.exe`.
 
 Add a thin product bundling action and Buildkite pipeline to divvun-actions, with
 CLI routing following that repository's conventions. Proposed locations are
-`actions/divvun-wind/bundle.ts` and `pipelines/divvun-wind.ts`; these are
-planned files, not existing commands. The product repository owns its source,
+`actions/divvun-wind/bundle.ts` and `pipelines/divvun-wind.ts`. The pipeline
+and repository dispatch are now implemented in the shared actions checkout;
+the outto bundler remains planned. The product repository owns its source,
 version, package contract and manifest expectations. The shared actions repository
 owns orchestration and invokes the existing outto/signing helpers.
 
