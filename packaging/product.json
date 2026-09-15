@@ -8,8 +8,8 @@
   "payloads": [
     "divvun-wind.exe",
     "divvun-wind-symbols.exe",
-    "divvun_keyboard_labels.dll"
+    "divvunwind.dll"
   ],
-  "divvun_actions_revision": "ab7728d6e562fff7d8d626d50513e62009f59a34",
+  "divvun_actions_revision": "b7b62eeda223dcc91132638431de4c8baeb1cc8e",
   "outto_reviewed_revision": "9d5f1147ba68e7ba34b640912d355abf0a2692fb"
 }

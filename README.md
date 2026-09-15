@@ -22,7 +22,7 @@ This checks formatting, Clippy and tests, then builds these unsigned files in
 `target/x86_64-pc-windows-msvc/release/`:
 
 - `divvun-wind.exe`: one daemon per interactive user session.
-- `divvun_keyboard_labels.dll`: Explorer keyboard label hooks.
+- `divvunwind.dll`: Explorer keyboard label hooks.
 - `divvun-wind-symbols.exe`: exact-image Microsoft symbol preparation/validation.
 
 CI uses Divvun's managed Buildkite bootstrap: `divvun-actions ci`. The repository

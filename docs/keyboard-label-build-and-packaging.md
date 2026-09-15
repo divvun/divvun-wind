@@ -23,7 +23,7 @@ divvun-wind/
     crates/
         common/       # OS eligibility, shared catalogue and runtime contracts
         wind/         # divvun-wind.exe; one daemon per interactive user session
-        keyboard-labels/ # keyboard label override DLL and refresh behavior
+        wind-dll/     # divvunwind.dll; injected Wind runtime
         symbols/      # matching-symbol resolver and cache validation
     packaging/        # product metadata, lifecycle contract, manifest fixtures
     tests/fixtures/   # small catalogue and symbol-validation fixtures
@@ -101,7 +101,7 @@ owns orchestration and invokes the existing outto/signing helpers.
 The shared runtime has its own stable outto package identity, independent of any
 feature or language: `no.divvun.wind`. Its display name is
 `Divvun Windows Daemon`, its repository is `divvun-wind`, and its main executable
-is `divvun-wind.exe`. Feature-specific DLL/helper names remain descriptive.
+is `divvun-wind.exe`. The injected runtime DLL is `divvunwind.dll`; the symbol helper is `divvun-wind-symbols.exe`.
 
 | Package responsibility | Manifest/lifecycle requirement |
 | --- | --- |

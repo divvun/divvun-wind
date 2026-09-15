@@ -188,7 +188,7 @@ fn prepare(process: &Process, assets: &Path, stop: &Handle, log: &Path) -> Resul
 }
 
 fn validate_assets(assets: &Path) -> Result<PathBuf, String> {
-    let dll = assets.join("divvun_keyboard_labels.dll");
+    let dll = assets.join("divvunwind.dll");
     for path in [&dll, &assets.join("divvun-wind-symbols.exe")] {
         if !path.is_file() {
             return Err(format!(
@@ -300,7 +300,7 @@ fn monitor(
         };
         if let Some(module) = modules
             .iter()
-            .find(|m| m.name.eq_ignore_ascii_case("divvun_keyboard_labels.dll"))
+            .find(|m| m.name.eq_ignore_ascii_case("divvunwind.dll"))
         {
             if process.ready() {
                 let state = if native::same_path(&module.path, dll) {

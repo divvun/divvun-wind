@@ -249,7 +249,7 @@ pub fn inject(process: &Process, dll: &Path) -> Result<(), String> {
     let target = modules(process.pid)?;
     if target
         .iter()
-        .any(|m| m.name.eq_ignore_ascii_case("divvun_keyboard_labels.dll"))
+        .any(|m| m.name.eq_ignore_ascii_case("divvunwind.dll"))
     {
         return Ok(());
     }

@@ -1,5 +1,5 @@
 # Run in a dedicated PowerShell process: the DLL remains pinned until it exits.
-param([string]$Dll = 'target/x86_64-pc-windows-msvc/release/divvun_keyboard_labels.dll')
+param([string]$Dll = 'target/x86_64-pc-windows-msvc/release/divvunwind.dll')
 $ErrorActionPreference = 'Stop'
 $dllPath = (Resolve-Path -LiteralPath $Dll).Path
 Add-Type @'
