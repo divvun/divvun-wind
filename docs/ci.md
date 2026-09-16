@@ -15,7 +15,7 @@ The shared `pipelines/divvun-wind.ts` dispatches three dependent steps:
 2. Windows x64: download those binaries, stage the pinned Microsoft debugger DLLs,
    build the outto installer, and embed it in Wind's Windows 11 launcher.
 3. Linux: verify the installer hash/build identity, then publish the installer,
-   generated outto manifest, build provenance and `SHA256SUMS` to GitHub Releases.
+   generated outto manifest, build provenance and `BLAKE3SUMS` and `BLAKE3SUMS.minisig` to GitHub Releases.
 
 Successful `main` builds update the **`dev-latest` prerelease**. A `vX.Y.Z` tag
 matching the Cargo workspace version creates a versioned release. Pull requests,
