@@ -24,7 +24,7 @@ See [installer details](packaging/README.md) for current development limitations
 ## Build and check
 
 Use Windows with an x64 MSVC developer environment, a Windows SDK, Git and rustup.
-Rust 1.98.1 is pinned in `rust-toolchain.toml`. Cargo fetches the pinned Detours
+It needs Rust 1.98.1 or newer. Cargo fetches the pinned Detours
 revision and its native source submodule; no sibling checkout is required.
 
 ```powershell

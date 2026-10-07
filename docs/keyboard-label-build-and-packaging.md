@@ -24,7 +24,6 @@ documents. Record their origin and retain the applicable license notices.
 divvun-wind/
     Cargo.toml
     Cargo.lock
-    rust-toolchain.toml
     crates/
         common/       # OS eligibility, shared catalogue and runtime contracts
         wind/         # divvun-wind.exe; one daemon per interactive user session
